@@ -1,4 +1,3 @@
-//SPDX-License-Identifier: unlicense
 pragma solidity >=0.4.22 <=0.6.0;
 
 contract Ballot {
@@ -38,6 +37,8 @@ contract Ballot {
   }
 
   function vote(uint256 toProposal) public validVoter {
+    // 아래처럼 memory로 해 놓으면 원본 배열의 내용이 바뀌지 않아서 나중에 다시 조회해도 sender.voted가 false로 나오게 된다.
+    // 중복투표를 방지하려면 아래 memory를 storage로 바꿔줘야한다.
     Voter memory sender = voters[msg.sender];
 
     require(!sender.voted);
