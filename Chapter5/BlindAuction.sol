@@ -57,7 +57,7 @@ contract BlindAuction {
   {
     uint256 refund = 0;
     // 여기선 원본 배열의 값을 변경하는 것이 아니라 그저 참조하여 비교하는 것이기 때문에 아래와 같이 굳이 storage를 사용할 필요가 없다.
-    Bid memory bidtoCheck = bids[msg.sender];
+    Bid storage bidtoCheck = bids[msg.sender];
     if (bidtoCheck.blindedBid == keccak256(abi.encodePacked(value, secret))) {
       refund = refund + bidtoCheck.deposit;
       // 예치금보다 낮은 금액만을 입력할 수 있다.
@@ -77,9 +77,12 @@ contract BlindAuction {
     if (value <= highestBid) {
       return false;
     }
+    // 이전에 highestBidder와 highestBid 값이 있다면, 변경될 것이기 때문에 이전 값을 이전 bidder에게 돌려줘야한다.
+    // 이를 위해 depositReturns라는 매핑을 통해서 돌려줄 값을 기입해놓고, withdraw 함수에서 돌려준다.
     if (highestBidder != address(0)) {
       depositReturns[highestBidder] += highestBid;
     }
+    // 새로운 최고가로 교체작업
     highestBid = value;
     highestBidder = bidder;
     return true;
