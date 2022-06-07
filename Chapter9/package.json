@@ -1,0 +1,18 @@
+{
+  "name": "chapter9",
+  "version": "1.0.0",
+  "description": "Chapter9 ERC-721 함수를 이용하여 부동산 NFT 만들어보기 오픈제플린을 사용하여 코드 임포트해오기",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^2.0.8",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "openzeppelin-solidity": "4.6.0",
+    "web3": "^1.7.3"
+  }
+}
