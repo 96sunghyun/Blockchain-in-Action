@@ -1,0 +1,17 @@
+{
+  "name": "chapter8",
+  "version": "1.0.0",
+  "description": "Chapter8 web3js를 이용해서 blindedAuction, MPC 를 ropsten네트워크에 배포하고 실행해보기",
+  "main": "deploy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^2.0.8",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "web3": "^1.7.3"
+  }
+}
