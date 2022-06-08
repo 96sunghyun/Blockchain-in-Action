@@ -22,7 +22,6 @@ contract Ballot {
   }
   Phase public state = Phase.Done;
 
-  //modifiers
   modifier validPhase(Phase reqPhase) {
     require(state == reqPhase, "Not the required phase");
     _;
@@ -37,7 +36,7 @@ contract Ballot {
 
   constructor(uint256 numProposals) public {
     chairperson = msg.sender;
-    voters[chairperson].weight = 2; // weight 2 for testing purposes
+    voters[chairperson].weight = 2;
     proposals.length = numProposals;
     state = Phase.Regs;
   }
@@ -50,12 +49,9 @@ contract Ballot {
   function register(address voter) public validPhase(Phase.Regs) onlyChair {
     require(!voters[voter].voted);
     voters[voter].weight = 1;
-    // voters[voter].voted = false;
   }
 
   function vote(uint256 toProposal) public validPhase(Phase.Vote) {
-    //Cant not use like this: Voter memory sender = voters[msg.sender];
-    //Changes happen only locally
     require(!voters[msg.sender].voted, "Voter has already voted");
     require(toProposal < proposals.length, "Proposal number over limit");
 
@@ -71,11 +67,12 @@ contract Ballot {
     returns (uint256 winningProposal)
   {
     uint256 winningVoteCount = 0;
-    for (uint256 prop = 0; prop < proposals.length; prop++)
+    for (uint256 prop = 0; prop < proposals.length; prop++) {
       if (proposals[prop].voteCount > winningVoteCount) {
         winningVoteCount = proposals[prop].voteCount;
         winningProposal = prop;
       }
+    }
     assert(winningVoteCount >= 3);
   }
 }
